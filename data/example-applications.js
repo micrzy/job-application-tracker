@@ -21,7 +21,7 @@ window.JOB_DATA = {
    "nextDate": "2026-10-14",
    "applied": "2026-09-10",
    "salary": 62000,
-   "match": 8.5,
+   "match": 8,
    "career": 8,
    "prospect": 7,
    "interviewed": true
@@ -39,7 +39,7 @@ window.JOB_DATA = {
    "applied": "2026-09-22",
    "match": 9,
    "career": 8.5,
-   "prospect": 7,
+   "prospect": 6.5,
    "interviewed": true
   },
   {
@@ -53,7 +53,7 @@ window.JOB_DATA = {
    "applied": "2026-09-30",
    "match": 9.5,
    "career": 8,
-   "prospect": 7
+   "prospect": 7.5
   },
   {
    "id": 4,
@@ -66,7 +66,7 @@ window.JOB_DATA = {
    "applied": "2026-09-18",
    "match": 9,
    "career": 8.5,
-   "prospect": 8
+   "prospect": 8.5
   },
   {
    "id": 5,
@@ -77,9 +77,9 @@ window.JOB_DATA = {
    "status": "waiting",
    "stage": "Followed up",
    "applied": "2026-09-12",
-   "match": 7.5,
+   "match": 7,
    "career": 7.5,
-   "prospect": 7.5
+   "prospect": 8
   },
   {
    "id": 6,
@@ -146,7 +146,7 @@ window.JOB_DATA = {
    "applied": "2026-08-25",
    "match": 7,
    "career": 6,
-   "prospect": 6.5
+   "prospect": 6
   }
  ]
 };

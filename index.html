@@ -657,7 +657,7 @@ function renderTable(rows) {
         <div class="role">${esc(a.role)}</div>${a.loc ? `<div class="loc">${esc(a.loc)}</div>` : ""}${a.notes ? `<div class="note">${t("note")}${esc(a.notes)}</div>` : ""}</td>
       <td class="r score">${a.total == null ? D : `<b class="num">${a.total.toFixed(1)}</b><div class="sbar" style="margin-left:auto"><i style="width:${a.total*10}%"></i></div>`}</td>
       <td class="r num">${sc(a.match)}</td><td class="r num">${sc(a.career)}</td><td class="r num">${sc(a.prospect)}</td>
-      <td class="num">${esc(a.applied)}</td>
+      <td class="num" style="white-space:nowrap">${esc(a.applied)}</td>
       <td class="r num ${a.status === "waiting" && a.age >= FOLLOW_UP_DAYS ? "over" : ""}">${t("days", a.age)}</td>
       <td class="next">${nextCell(a)}</td>
       <td class="r num">${eur(a.salary)}</td>
@@ -782,9 +782,9 @@ function svgEl(svg, tag, attrs, text) {
   if (text != null) e.textContent = text;
   svg.appendChild(e); return e;
 }
-function hbars(svg, data, { max, ref, unit = n => n, color, step, labelW = 130, empty = t("noData") }) {
+function hbars(svg, data, { max, ref, unit = n => n, color, step, labelW = 130, W = 520, empty = t("noData") }) {
   svg.innerHTML = "";
-  const W = 520, L = labelW, R = 50, row = 26, top = 6, H = top + Math.max(data.length, 2) * row + 26;
+  const L = labelW, R = 50, row = 26, top = 6, H = top + Math.max(data.length, 2) * row + 26;
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   if (!data.length) { svgEl(svg, "text", { x:W / 2, y:H / 2, "text-anchor":"middle" }, empty); return; }
   const x = v => L + v / max * (W - L - R);
@@ -796,7 +796,7 @@ function hbars(svg, data, { max, ref, unit = n => n, color, step, labelW = 130, 
   if (ref != null) svgEl(svg, "line", { x1:x(ref), x2:x(ref), y1:top - 4, y2:H - 22, class:"ref" });
   data.forEach((d, i) => {
     const y = top + i * row;
-    svgEl(svg, "text", { x:L - 8, y:y + row / 2, "text-anchor":"end", "dominant-baseline":"central" }, short(d.label, labelW > 120 ? 15 : 13));
+    svgEl(svg, "text", { x:L - 8, y:y + row / 2, "text-anchor":"end", "dominant-baseline":"central" }, short(d.label, Math.floor(labelW / 8.5)));
     const b = svgEl(svg, "rect", { x:L, y:y + 4, width:Math.max(2, x(d.v) - L), height:row - 8, rx:3, fill:color(d) });
     svgEl(svg, "text", { x:x(d.v) + 6, y:y + row / 2, "dominant-baseline":"central", class:"val" }, unit(d.v));
     hover(b, `<b>${esc(d.label)}</b><br>${esc(d.sub)}`);
@@ -811,7 +811,7 @@ function renderWait(rows) {
   const data = rows.filter(a => a.status === "waiting").sort((a, b) => a.age - b.age)
     .map(a => ({ label:a.company, v:a.age, sub:`${a.role} · ${t("appliedOn", a.applied)}` }));
   const max = Math.max(20, Math.ceil(Math.max(0, ...data.map(d => d.v)) / 4) * 4 + 4);
-  hbars($("wait"), data, { max, ref:FOLLOW_UP_DAYS, unit: n => t("days", n), empty:t("waitEmpty"),
+  hbars($("wait"), data, { max, ref:FOLLOW_UP_DAYS, W:1080, unit: n => t("days", n), empty:t("waitEmpty"),
     color: d => d.v >= FOLLOW_UP_DAYS ? "var(--bad)" : "var(--teal)" });
 }
 function renderReasons(rows) {
@@ -821,7 +821,7 @@ function renderReasons(rows) {
   });
   const data = [...m].map(([k, cos]) => ({ label:k, v:cos.length, sub:cos.join(t("sep")) })).sort((a, b) => b.v - a.v);
   const max = Math.max(4, Math.ceil(Math.max(0, ...data.map(d => d.v)) / 2) * 2 + 2);
-  hbars($("reasons"), data, { max, step: max > 12 ? 4 : 2, labelW: 120, color: () => "var(--bad)", empty:t("reasonsEmpty") });
+  hbars($("reasons"), data, { max, step: max > 12 ? 4 : 2, labelW: 170, color: () => "var(--bad)", empty:t("reasonsEmpty") });
 }
 function renderWeekly(rows) {
   const svg = $("weekly"); svg.innerHTML = "";

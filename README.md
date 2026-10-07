@@ -4,6 +4,13 @@ A single-file HTML dashboard for keeping track of job applications: status break
 
 No server, database or install is needed. Double-click `index.html` to open it.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshot-dark.png">
+  <img alt="Dashboard with example data: KPI tiles, status donut, upcoming interviews, application table and charts" src="docs/screenshot-light.png">
+</picture>
+
+<sub>Screenshot uses the made-up example data from <code>data/example-applications.js</code>.</sub>
+
 ## Where the data lives
 
 | File | Contents | Committed to git |
