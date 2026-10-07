@@ -1,0 +1,8 @@
+# Personal job search data, kept local only
+data/my-applications.js
+data/*.private.*
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
